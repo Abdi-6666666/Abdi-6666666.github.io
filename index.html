@@ -7,65 +7,93 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <header class="header">
         <nav class="navbar">
-            <div class="container">
+            <div class="nav-container">
                 <div class="logo">Abdi's Blog</div>
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link active">首页</a></li>
-                    <li><a href="#posts" class="nav-link">文章</a></li>
-                    <li><a href="#about" class="nav-link">关于</a></li>
-                    <li><a href="#contact" class="nav-link">联系</a></li>
-                </ul>
+                <div class="nav-right">
+                    <ul class="nav-links">
+                        <li><a href="#" class="nav-link" data-section="home">首页</a></li>
+                        <li><a href="#" class="nav-link" data-section="articles">文章</a></li>
+                        <li><a href="#" class="nav-link" data-section="about">关于</a></li>
+                    </ul>
+                    <button class="auth-btn" id="authBtn">GitHub 登陆</button>
+                </div>
             </div>
         </nav>
     </header>
 
-    <section id="home" class="hero">
-        <div class="container">
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Home Section -->
+        <section id="home" class="section home-section">
             <div class="hero-content">
                 <h1>欢迎来到我的博客</h1>
-                <p>分享技术、思考和生活的点滴</p>
-                <button class="btn" onclick="document.getElementById('posts').scrollIntoView({behavior: 'smooth'})">开始阅读</button>
+                <p>分享技术、想法和生活的点滴</p>
+                <button class="cta-btn" onclick="scrollToSection('articles')">开始阅读</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="posts" class="posts">
-        <div class="container">
-            <h2 class="section-title">最新文章</h2>
-            <div class="posts-grid" id="postsContainer"></div>
-        </div>
-    </section>
+        <!-- Articles Section -->
+        <section id="articles" class="section articles-section">
+            <div class="section-header">
+                <h2>最新文章</h2>
+                <button class="publish-btn" id="publishBtn" style="display:none;">✏️ 发布文章</button>
+            </div>
+            <div class="articles-container" id="articlesContainer">
+                <div class="loading">加载中...</div>
+            </div>
+        </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">关于我</h2>
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <h2>关于我</h2>
             <div class="about-content">
-                <p>你好！我是Abdi，一个充满热情的开发者和技术爱好者。我喜欢分享我在编程、技术和生活中的学习和思考。</p>
-                <p>在这个博客上，你会找到关于Web开发、编程技巧和个人想法的文章。希望这些内容能对你有所帮助！</p>
+                <p>你好！我是 Abdi，一个充满热情的开发者。在这个博客上分享我在技术、编程和生活中的学习与思考。</p>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">联系我</h2>
-            <div class="contact-content">
-                <p>欢迎通过以下方式与我联系：</p>
-                <div class="contact-links">
-                    <a href="https://github.com/Abdi-6666666" class="contact-link">GitHub</a>
-                    <a href="mailto:your-email@example.com" class="contact-link">Email</a>
-                    <a href="https://twitter.com/" class="contact-link">Twitter</a>
+    <!-- Publish Modal -->
+    <div id="publishModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>发布新文章</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="publishForm" class="publish-form">
+                <div class="form-group">
+                    <label for="title">文章标题</label>
+                    <input type="text" id="title" name="title" required placeholder="输入文章标题...">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="content">文章内容</label>
+                    <textarea id="content" name="content" required placeholder="输入文章内容..." rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">标签（用逗号分隔）</label>
+                    <input type="text" id="tags" name="tags" placeholder="例如: 技术,随笔,分享">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">取消</button>
+                    <button type="submit" class="btn-publish">发布</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Abdi 的博客. 保留所有权利。</p>
+    <!-- Article Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content detail-modal-content">
+            <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+            <div id="detailContent"></div>
         </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Abdi's Blog. 保留所有权利。</p>
     </footer>
 
     <script src="script.js"></script>
